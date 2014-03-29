@@ -211,7 +211,7 @@ Merge.prototype = {
         return rows;
     },
     _addButtonListeners: function() {
-        var $buttons = $("input.merge-arrow-right");
+        var $buttons = $("button.merge-arrow-right");
         var rows = this.rows;
         var click_action_right = function(button, row) {
             if(row.allowsMoveRight())
@@ -232,7 +232,7 @@ Merge.prototype = {
             $(value).click(function() {click_action_right(value, row); });
         });
 
-        $buttons = $("input.merge-arrow-left");
+        $buttons = $("button.merge-arrow-left");
         rows = this.rows;
         var click_action_left = function(button, row) {
             if(row.allowsMoveLeft())
@@ -393,9 +393,9 @@ MergeRow.prototype = {
     },
     _generateMergeControlColumn: function(side) {
         if (side === cellSide[0]) {
-            return "<input value='->' data-cell-idx='0' class='merge-arrow-right' type='button'>";
+            return "<button data-cell-idx='0' value='' class='merge-arrow-right right-arrow'/>";
         } else {
-            return "<input value='<-' data-cell-idx='0' class='merge-arrow-left' type='button'>";
+            return "<button data-cell-idx='0' value='' class='merge-arrow-left left-arrow'/>";
         }
     },
     addLocal: function (nbcell) {
@@ -437,12 +437,14 @@ MergeRow.prototype = {
         if(!$leftButton.hasClass("undo-button-local"))
         {
             $leftButton.addClass("undo-button-local");
-            $leftButton.val("<-");
+            $leftButton.removeClass("right-arrow");
+            $leftButton.addClass("left-arrow");
         }
         else
         {
             $leftButton.removeClass("undo-button-local");
-            $leftButton.val("->");
+            $leftButton.removeClass("left-arrow");
+            $leftButton.addClass("right-arrow");
         }
     },
     toggleRightButton: function() {
@@ -450,19 +452,21 @@ MergeRow.prototype = {
         if(!$rightButton.hasClass("undo-button-remote"))
         {
             $rightButton.addClass("undo-button-remote");
-            $rightButton.val("->");
+            $rightButton.removeClass("left-arrow");
+            $rightButton.addClass("right-arrow");
         }
         else
         {
             $rightButton.removeClass("undo-button-remote");
-            $rightButton.val("<-");
+            $rightButton.removeClass("right-arrow");
+            $rightButton.addClass("left-arrow");
         }
     },
     getLeftButton: function() {
-        return $("div#"+this.rowID+".row").find(".row-cell-merge-controls-local > input");
+        return $("div#"+this.rowID+".row").find(".row-cell-merge-controls-local > button");
     },
     getRightButton: function() {
-        return $("div#"+this.rowID+".row").find(".row-cell-merge-controls-remote > input");
+        return $("div#"+this.rowID+".row").find(".row-cell-merge-controls-remote > button");
     },
     allowsMoveLeft: function() {
         var rightButton = this.getRightButton();

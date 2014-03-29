@@ -241,4 +241,23 @@
 
   #nbdiff-filename {
       font-family: monospace;
+      font-weight: bold;
+      font-size: 17px;
+      padding-left: 15px;
+  }
+  
+  .left-arrow{
+      background-image:url(/nbdiff/image/left.png);
+      border:none;
+      min-height:24px;
+      min-width:24px;
+      display:inline-block;
+  }
+  
+  .right-arrow{
+      background-image:url(/nbdiff/image/right.png);
+      border:none;
+      min-height:24px;
+      min-width:24px;
+      display:inline-block;
   }
